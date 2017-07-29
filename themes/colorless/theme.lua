@@ -9,14 +9,14 @@ local wa = mouse.screen.workarea
 -- Color scheme
 -----------------------------------------------------------------------------------------------------------------------
 theme.color = {
-	main      = "#02606D",
+	main      = "#064E71",
 	gray      = "#575757",
 	bg        = "#161616",
 	bg_second = "#181818",
 	wibox     = "#202020",
 	icon      = "#a0a0a0",
 	text      = "#aaaaaa",
-	urgent    = "#B25500",
+	urgent    = "#B32601",
 	highlight = "#ffffff",
 
 	border    = "#404040",
@@ -38,34 +38,38 @@ theme.panel_height        = 36 -- panel height
 theme.border_width        = 4  -- window border width
 theme.useless_gap         = 4  -- useless gap
 
-theme.wallpaper = theme.path .. "/wallpaper/primary.png" -- wallpaper file
+theme.cellnum = { x = 96, y = 58 } -- grid layout property
+
+theme.wallpaper = "/home/dinesh/Pictures/bebop.jpg"
 
 -- Fonts
 ------------------------------------------------------------
 theme.fonts = {
-	main     = "sans 12",      -- main font
-	menu     = "sans 12",      -- main menu font
-	tooltip  = "sans 12",      -- tooltip font
-	notify   = "sans bold 14", -- redflat notify popup font
-	clock    = "sans bold 12", -- textclock widget font
-	qlaunch  = "sans bold 14", -- quick launch key label font
-	title    = "sans bold 12", -- widget titles font
-	keychain = "sans bold 14", -- key sequence tip font
-	titlebar = "sans bold 12", -- client titlebar font
+	main     = "Roboto 13",      -- main font
+	menu     = "Roboto 13",      -- main menu font
+	tooltip  = "Roboto 13",      -- tooltip font
+	notify   = "Play bold 14",   -- redflat notify popup font
+	clock    = "Play bold 12",   -- textclock widget font
+	qlaunch  = "Play bold 14",   -- quick launch key label font
+	keychain = "Play bold 16",   -- key sequence tip font
+	title    = "Roboto bold 13", -- widget titles font
+	titlebar = "Roboto bold 13", -- client titlebar font
 	hotkeys = {
-		main  = "sans 12",      -- hotkeys helper main font
-		key   = "mono 12",      -- hotkeys helper key font (use monospace for align)
-		title = "sans bold 14", -- hotkeys helper group title font
-	},
+		main  = "Roboto 14",             -- hotkeys helper main font
+		key   = "mono 14",      -- hotkeys helper key font (use monospace for align)
+		title = "Roboto bold 16",        -- hotkeys helper group title font
+	}
 }
 
 theme.cairo_fonts = {
-	tag         = { font = "Sans", size = 16, face = 1 }, -- tag widget font
-	appswitcher = { font = "Sans", size = 22, face = 1 }, -- appswitcher widget font
+	task        = { font = "Play", size = 16, face = 1 }, -- tag widget font
+	tag         = { font = "Noto Sans CJK JP", size = 20, face = 0, slant = 0 }, -- tag widget font
+	appswitcher = { font = "Play", size = 20, face = 1 }, -- appswitcher widget font
+	monitor     = { font = "Play", size = 20, face = 1 }, -- system monitoring widget font
 	navigator   = {
-		title = { font = "Sans", size = 28, face = 1, slant = 0 }, -- window navigation title font
-		main  = { font = "Sans", size = 22, face = 1, slant = 0 }  -- window navigation  main font
-	},
+		title = { font = "Play", size = 28, face = 1, slant = 0 }, -- window navigation title font
+		main  = { font = "Play", size = 22, face = 1, slant = 0 }  -- window navigation  main font
+	}
 }
 
 -- Shared icons
@@ -162,7 +166,7 @@ theme.menu.color = {
 
 -- Gauge style
 -----------------------------------------------------------------------------------------------------------------------
-theme.gauge = { tag = {}, task = {}, graph = {}}
+theme.gauge = { tag = {}, task = {}, graph = {}, icon = {}, monitor = {} }
 
 -- Separator
 ------------------------------------------------------------
@@ -172,15 +176,20 @@ theme.gauge.separator = {
 	color  = theme.color
 }
 
+-- Icon indicator
+------------------------------------------------------------
+theme.gauge.icon.single = {
+	color  = theme.color
+}
+
 -- Tag
 ------------------------------------------------------------
-theme.gauge.tag.orange = {
-	width        = 38,
-	line_width   = 4,
-	iradius      = 5,
-	radius       = 11,
-	hilight_min  = false,
-	color        = theme.color
+theme.gauge.tag.blue = {
+	width    = 103,
+	font     = theme.cairo_fonts.tag,
+	point    = { width = 80, height = 3, gap = 27, dx = 5 },
+	text_gap = 20,
+	color    = theme.color
 }
 
 -- Task
@@ -188,18 +197,36 @@ theme.gauge.tag.orange = {
 theme.gauge.task.blue = {
 	width    = 80,
 	show_min = true,
-	font     = theme.cairo_fonts.tag,
+	font     = theme.cairo_fonts.task,
 	point    = { width = 70, height = 3, gap = 27, dx = 5 },
 	text_gap = 20,
 	color    = theme.color
 }
 
+-- Monitor
+--------------------------------------------------------------
+theme.gauge.monitor.plain = {
+    width    = 50,
+	font     = theme.cairo_fonts.monitor,
+	text_gap = 20,
+	line     = { width = 4, v_gap = 27 },
+	color    = theme.color
+}
+
+-- Doublebar monitor
+------------------------------------------------------------
+theme.gauge.graph.doublebar = {
+	line  = { width = 4, gap = 5 },
+	color = theme.color
+}
+
 -- Dotcount
 ------------------------------------------------------------
 theme.gauge.graph.dots = {
-	column_num   = { 3, 5 }, -- { min, max }
-	row_num      = 3,
-	dot_size     = 5,
+	column_num   = { 2, 3 }, -- { min, max }
+	row_num      = 4,
+	dot_size     = 4,
+    width        = 100,
 	dot_gap_h    = 4,
 	color        = theme.color
 }
@@ -212,12 +239,19 @@ theme.widget = {}
 -- individual margins for palnel widgets
 ------------------------------------------------------------
 theme.widget.wrapper = {
-	mainmenu    = { 12, 10, 6, 6 },
-	layoutbox   = { 10, 10, 6, 6 },
-	textclock   = { 12, 12, 0, 0 },
-	taglist     = { 4, 4, 0, 0 },
-	tray        = { 10, 12, 7, 7 },
-	-- tasklist    = { 0, 70, 0, 0 }, -- centering tasklist widget
+	textclock   = { 4, 20, 0, 0 },
+	layoutbox   = { 4, 4, 9, 9 },
+	volume      = { 4, 4, 5, 5 },
+	upgrades    = { 4, 4, 9, 9 },
+	keyboard    = { 4, 4, 5, 5 },
+	mail        = { 4, 4, 5, 5 },
+	battery     = { 3, 3, 0, 0 },
+	ram         = { 3, 3, 0, 0 },
+	cpu         = { 3, 3, 0, 0 },
+	tray        = { 3, 3, 5, 5 },
+	network     = { 3, 3, 5, 5 },
+	taglist     = { 12, 0, 0, 0 },
+	tasklist    = { 4, 4, 0, 0 },
 }
 
 -- Textclock
