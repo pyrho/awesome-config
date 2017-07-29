@@ -81,7 +81,7 @@ taglist.buttons = awful.util.table.join(
 -- Textclock widget
 --------------------------------------------------------------------------------
 local textclock = {}
-textclock.widget = redflat.widget.textclock({ timeformat = "%H:%M", dateformat = "%b  %d  %a" })
+textclock.widget = redflat.widget.textclock({ timeformat = "%H:%M     ", dateformat = "%b  %d  %a" })
 
 -- Layoutbox configure
 --------------------------------------------------------------------------------
@@ -117,7 +117,7 @@ volume.buttons = awful.util.table.join(
 -- Keyboard layout indicator
 --------------------------------------------------------------------------------
 local kbindicator = {}
-kbindicator.widget = redflat.widget.keyboard({ layouts = { "English", "Russian" } })
+kbindicator.widget = redflat.widget.keyboard({ layouts = { "English", "French" } })
 
 kbindicator.buttons = awful.util.table.join(
 	awful.button({}, 1, function () redflat.widget.keyboard:toggle_menu() end),
@@ -163,6 +163,11 @@ sysmon.widget.cpu = redflat.widget.sysmon(
 	{ timeout = 2, monitor = { label = "CPU" } }
 )
 
+-- Eth Widget
+local ethwidget = require("pyrho.ethwidget")
+ethw = ethwidget()
+
+-- CPU Widget
 sysmon.buttons.cpu = awful.util.table.join(
 	awful.button({ }, 1, function() redflat.float.top:show("cpu") end)
 )
@@ -220,6 +225,11 @@ awful.screen.connect_for_each_screen(
 				layout = wibox.layout.fixed.horizontal,
 
 				env.wrapper(layoutbox[s], "layoutbox", layoutbox.buttons),
+
+				separator,
+
+                env.wrapper(ethw.textwidget, "ethprice"),
+                env.wrapper(ethw.imagewidget, "ethicon"),
 
 				separator,
 				env.wrapper(sysmon.widget.network, "network"),

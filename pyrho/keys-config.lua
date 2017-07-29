@@ -376,28 +376,6 @@ function hotkeys:init(args)
 			{ description = "Show minitray", group = "Widgets" }
 		},
 		{
-			{ env.mod }, "F3", function() redflat.float.qlaunch:show() end,
-			{ description = "Application quick launcher", group = "Main" }
-		},
-
-		{
-			{ env.mod }, "t", function() redtitle.toggle(client.focus) end,
-			{ description = "Show/hide titlebar for focused client", group = "Titlebar" }
-		},
-		{
-			{ env.mod, "Control" }, "t", function() redtitle.switch(client.focus) end,
-			{ description = "Switch titlebar view for focused client", group = "Titlebar" }
-		},
-		{
-			{ env.mod, "Shift" }, "t", function() redtitle.toggle_all() end,
-			{ description = "Show/hide titlebar for all clients", group = "Titlebar" }
-		},
-		{
-			{ env.mod, "Control", "Shift" }, "t", function() redtitle.switch_all() end,
-			{ description = "Switch titlebar view for all clients", group = "Titlebar" }
-		},
-
-		{
 			{ env.mod }, "a", nil, function() appswitcher:show({ filter = current }) end,
 			{ description = "Switch to next with current tag", group = "Application switcher" }
 		},
@@ -426,7 +404,14 @@ function hotkeys:init(args)
 			{ env.mod }, "Left", awful.tag.viewprev,
 			{ description = "View previous tag", group = "Tag navigation" }
 		},
-
+        {
+            { env.mod, "Shift" }, "j", function() awful.client.swap.byidx(1) end,
+            { description = "swap with next client by index", group = "client" }
+        },
+        {
+            { env.mod, "Shift" }, "k", function() awful.client.swap.byidx(-1) end,
+            { description = "swap with previous client by index", group = "client" }
+        },
 		{
 			{ env.mod }, "y", function() laybox:toggle_menu(mouse.screen.selected_tag) end,
 			{ description = "Show layout menu", group = "Layouts" }
@@ -452,10 +437,10 @@ function hotkeys:init(args)
 	-- Client keys
 	--------------------------------------------------------------------------------
 	self.raw.client = {
-		{
-			{ env.mod }, "f", function(c) c.fullscreen = not c.fullscreen; c:raise() end,
-			{ description = "Toggle fullscreen", group = "Client keys" }
-		},
+		-- {
+		-- 	{ env.mod }, "f", function(c) c.fullscreen = not c.fullscreen; c:raise() end,
+		-- 	{ description = "Toggle fullscreen", group = "Client keys" }
+		-- },
 		{
 			{ env.mod, "Control" }, "f", awful.client.floating.toggle,
 			{ description = "Toggle floating", group = "Client keys" }

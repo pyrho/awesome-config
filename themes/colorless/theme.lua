@@ -58,7 +58,8 @@ theme.fonts = {
 		main  = "Roboto 14",             -- hotkeys helper main font
 		key   = "mono 14",      -- hotkeys helper key font (use monospace for align)
 		title = "Roboto bold 16",        -- hotkeys helper group title font
-	}
+	},
+    ethprice = "Play bold 12"
 }
 
 theme.cairo_fonts = {
@@ -79,6 +80,9 @@ theme.icon = {
 	blank    = theme.path .. "/common/blank.svg",
 	warning  = theme.path .. "/common/warning.svg",
 	awesome  = theme.path .. "/common/awesome.svg",
+    ethdown  = theme.path .. "/widget/eth_down.png",
+    ethup    = theme.path .. "/widget/eth_up.png",
+    eth      = theme.path .. "/widget/eth.png"
 }
 
 -- Service utils config
@@ -239,7 +243,7 @@ theme.widget = {}
 -- individual margins for palnel widgets
 ------------------------------------------------------------
 theme.widget.wrapper = {
-	textclock   = { 4, 20, 0, 0 },
+	textclock   = { 4, 4, 0, 0 },
 	layoutbox   = { 4, 4, 9, 9 },
 	volume      = { 4, 4, 5, 5 },
 	upgrades    = { 4, 4, 9, 9 },
@@ -252,13 +256,16 @@ theme.widget.wrapper = {
 	network     = { 3, 3, 5, 5 },
 	taglist     = { 12, 0, 0, 0 },
 	tasklist    = { 4, 4, 0, 0 },
+    ethprice    = { 4, 4, 3, 3 },
+    ethicon     = { 4, 4, 3, 3 }
 }
 
 -- Textclock
 ------------------------------------------------------------
 theme.widget.textclock = {
 	font  = theme.fonts.clock,
-	color = { text = theme.color.icon }
+	color = { text = theme.color.icon },
+    width = 500
 }
 
 -- Minitray
